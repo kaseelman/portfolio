@@ -6,9 +6,130 @@
 }
 
 :root {
+    /* Layout variables */
     --frame-width: 1920px;
-    --content-width: 600px;  /* Narrower content width to match your design */
-    --side-margin: calc((100% - var(--content-width)) / 2);  /* Center the narrow content */
+    --content-width: 600px;
+    --side-margin: calc((100% - var(--content-width)) / 2);
+
+    /* Color scheme */
+    --bg-primary: #ffffff;
+    --bg-frame: #ffffff;
+    --text-primary: #000000;
+    --text-secondary: #696969;
+    --pill-bg: #d9d9d9;
+    --pill-hover: #232323;
+    --pill-text: #000000;
+    --pill-text-hover: #ffffff;
+    --link-hover: #0066CC;
+    --svg-stroke: #000000;
+    --not-available-bg: #232323;
+    --not-available-text: #ffffff;
+    --not-available-dark-bg: #ffffff;
+    --not-available-dark-text: #000000;
+    --text-description: #3C3C3D;
+    --footer-text: var(--text-primary);
+    --dot-color: #f1a33b;
+    --dot-glow: rgba(241, 163, 59, 0.4);
+    
+    /* Transition */
+    --theme-transition: all 0.3s ease;
+
+    /* BrewLog SVG specific colors */
+    --brewlog-bg: #000000;
+    --brewlog-fill: #ffffff;
+}
+
+/* Dark theme colors */
+[data-theme="dark"] {
+    --bg-primary: #000000;
+    --bg-frame: #000000;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --pill-bg: #ffffff;
+    --pill-hover: #000000;
+    --pill-text: #000000;
+    --pill-text-hover: #ffffff;
+    --link-hover: #66b0ff;
+    --svg-stroke: #ffffff;
+    --not-available-bg: #ffffff;
+    --not-available-text: #000000;
+    --text-description: #a0a0a0;
+    --footer-text: var(--text-primary);
+
+    /* BrewLog SVG specific colors */
+    --brewlog-bg: #ffffff;
+    --brewlog-fill: #000000;
+}
+
+/* Theme toggle styles */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.theme-toggle-button {
+    background: none;
+    border: none;
+    padding: 0.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.theme-toggle-button svg {
+    position: absolute;
+    stroke: var(--text-primary);
+    transition: var(--theme-transition);
+}
+
+.sun-icon {
+    position: absolute;
+    transform: rotate(90deg) scale(0);
+}
+
+.moon-icon {
+    transform: rotate(0deg) scale(1);
+}
+
+[data-theme="dark"] .sun-icon {
+    transform: rotate(0deg) scale(1);
+}
+
+[data-theme="dark"] .moon-icon {
+    transform: rotate(-90deg) scale(0);
+}
+
+/* Update existing styles to use variables */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: var(--theme-transition);
+}
+
+.text-wrapper-4,
+.project-subtitle,
+.experience-domain,
+.footer-year {
+    color: var(--text-secondary);
+}
+
+.div-wrapper-2 {
+    background-color: var(--pill-bg);
+    color: var(--pill-text);
+    transition: var(--theme-transition);
+}
+
+.div-wrapper-2::before {
+    background-color: var(--pill-hover);
+}
+
+.div-wrapper-2:hover .text-wrapper-7 {
+    color: var(--pill-text-hover);
 }
 
 /* Main container */
@@ -18,10 +139,11 @@
     min-height: 100vh;
     margin: 0 auto;
     padding: 2rem var(--side-margin);
-    background-color: #ffffff;
+    background-color: var(--bg-frame);
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: var(--theme-transition);
 }
 
 /* Content wrapper */
@@ -40,19 +162,19 @@
     align-items: center;
     width: 100%;
     padding: 0;
-    position: relative; /* Add this to allow absolute positioning of children */
+    height: 40px; /* Set a fixed height for the header */
 }
 
 .div-2 {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    height: 100%;
 }
 
 /* logo styling */
 .group {
-    width: 45px;
-    height: 45px;
+    width: 157px;
+    height: 180px;
     object-fit: contain;
     flex-shrink: 0;
 }
@@ -64,14 +186,21 @@
 
 .text-wrapper {
     font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
-    font-size: 1.2rem; /* Reduce font size for mobile */
-    color: #000000;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    transition: var(--theme-transition);
+    display: flex; /* Add flex display */
+    align-items: center; /* Center vertically */
+    height: 100%; /* Match height of parent */
 }
 
 /* Contact button */
 .div-3 {
     display: flex;
     align-items: center;
+    margin-left: auto;
+    height: 100%;
+    gap: 1rem; /* Add gap between theme toggle and contact button */
 }
 
 .overlap-group {
@@ -88,17 +217,21 @@
 
 /* Main content section */
 .div-wrapper {
-    padding-top: 30px; /* Added top padding of 30px */
-    margin-top: 0;
+    padding-top: 20px; /* Reduced from 30px */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem; /* Reduced from 2rem */
 }
 
 .div-4 {
     max-width: 800px;
 }
 
+/* Main heading text - desktop */
 .text-wrapper-3 {
     font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
-    font-size: 5rem;
+    font-size: 3rem; /* Reduced from 4rem */
     line-height: 1;
     margin-bottom: 0;
     letter-spacing: -0.02em;
@@ -106,7 +239,7 @@
 
 .text-wrapper-4 {
     font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
-    font-size: 5rem;
+    font-size: 3rem; /* Reduced from 4rem */
     line-height: 1;
     color: #696969;
     margin-bottom: 10px;
@@ -127,26 +260,80 @@
     display: inline-flex;
     align-items: center;
     gap: 20px; /* Horizontal gap between objects */
-    padding: 20px 33px; /* Vertical padding 20px, horizontal padding 33px */
-    background-color: #232323;
+    padding: 15px 33px; /* Vertical padding 20px, horizontal padding 33px */
+    background-color: var(--not-available-bg);
     border-radius: 35px; /* Half of the height to make it pill-shaped */
     margin: 0;
     width: fit-content; /* Adjust width to fit content */
     white-space: nowrap; /* Prevent content from wrapping */
+    transition: var(--theme-transition);
+}
+
+.div-5 .text-wrapper-5 {
+    color: var(--not-available-text);
+    transition: var(--theme-transition);
 }
 
 .ellipse {
     width: 8px;
     height: 8px;
-    background-color: #f1a33b;
+    background-color: var(--dot-color);
     border-radius: 50%;
-    flex-shrink: 0; /* Prevent the ellipse from shrinking */
+    flex-shrink: 0;
+    position: relative;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.ellipse::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    background-color: var(--dot-color);
+    opacity: 0.4;
+    filter: blur(3px);
+    animation: glow 3s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.95);
+        opacity: 0.5;
+    }
+}
+
+@keyframes glow {
+    0% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(1.5);
+    }
+    100% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
 }
 
 .text-wrapper-5 {
     font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
-    color: #ffffff;
+    color: var(--not-available-text);
     font-size: 0.875rem;
+    transition: var(--theme-transition);
 }
 
 /* Project slider */
@@ -197,17 +384,83 @@
     gap: 0.5rem;
 }
 
+/* Common skill pill styles */
 .div-wrapper-2 {
+    position: relative;
     display: inline-flex;
-    padding: 0.35rem 0.75rem; /* Reduced padding */
-    background-color: #d9d9d9;
+    padding: 0.35rem 0.75rem;
+    background-color: var(--pill-bg);
     border-radius: 50px;
     white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--theme-transition);
 }
 
+/* Fill effect for skill pills */
+.div-wrapper-2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--pill-hover);
+    transition: width 0.3s ease;
+    z-index: 1;
+}
+
+/* Text wrapper */
 .text-wrapper-7 {
+    position: relative;
     font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
-    font-size: 0.75rem; /* Reduced font size */
+    font-size: 0.75rem;
+    z-index: 2;
+    transition: var(--theme-transition);
+    color: var(--pill-text);
+}
+
+/* Hover effects */
+.div-wrapper-2:hover::before {
+    width: 100%;
+}
+
+.div-wrapper-2:hover .text-wrapper-7 {
+    color: var(--pill-text-hover);
+}
+
+/* Experience section skill pills - maintain larger size */
+.experience-skills .div-wrapper-2 {
+    padding: 0.35rem 0.7rem;
+}
+
+.experience-skills .text-wrapper-7 {
+    font-size: 14px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .div-wrapper-2 {
+        padding: 0.2rem 0.4rem;
+    }
+    
+    .experience-skills .div-wrapper-2 {
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .experience-skills .text-wrapper-7 {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .experience-skills .div-wrapper-2 {
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .experience-skills .text-wrapper-7 {
+        font-size: 11px;
+    }
 }
 
 /* Navigation buttons */
@@ -263,9 +516,95 @@
 }
 
 @media (max-width: 768px) {
+    /* Update root variables for mobile */
+    :root {
+        --content-width: 100%;
+        --side-margin: 1rem; /* Reduce side margins */
+    }
+
+    .frame {
+        padding: 1.5rem 1rem; /* Reduce padding */
+    }
+
+    /* Restore contact button */
+    .div-3 {
+        display: flex; /* Show contact button */
+    }
+
+    .overlap-group {
+        padding: 0.4rem 1rem; /* Smaller padding */
+    }
+
+    .text-wrapper-2 {
+        font-size: 0.875rem; /* Smaller font */
+    }
+
+    /* Adjust project cards */
+    .project-card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem; /* Reduced gap */
+    }
+
+    .project-image {
+        width: 80px; /* Smaller image */
+        height: 80px;
+        align-self: flex-start;
+    }
+
+    .project-details {
+        width: 100%;
+        gap: 0.35rem; /* Tighter spacing */
+    }
+
+    .project-title {
+        font-size: 15px; /* Smaller title */
+    }
+
+    .project-subtitle {
+        font-size: 12px; /* Smaller subtitle */
+    }
+
+    .project-link {
+        font-size: 12px;
+    }
+
+    /* Adjust skill pills */
+    .div-wrapper-2 {
+        padding: 0.2rem 0.4rem;
+    }
+
+    .text-wrapper-7 {
+        font-size: 0.6rem;
+    }
+
+    /* Adjust experience section */
+    .experience-card {
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .experience-title {
+        font-size: 15px;
+    }
+
+    .experience-domain,
+    .experience-company,
+    .experience-date {
+        font-size: 12px;
+    }
+
+    .experience-description {
+        padding-left: 1rem;
+    }
+
+    .experience-description li {
+        font-size: 12px;
+    }
+
     .text-wrapper-3,
     .text-wrapper-4 {
-        font-size: 3.5rem;
+        font-size: 2.5rem; /* Reduced from 3rem */
     }
 
     .a-VERSATILE-product {
@@ -289,22 +628,6 @@
         gap: 0.25rem;
     }
 
-    .div-wrapper-2 {
-        padding: 0.25rem 0.5rem; /* Even smaller padding on mobile */
-    }
-
-    .text-wrapper-7 {
-        font-size: 0.7rem; /* Slightly smaller text on mobile */
-    }
-
-    .div-3 {
-        display: none; /* Hide the original contact button */
-    }
-
-    .hamburger {
-        display: flex; /* Show hamburger menu */
-    }
-
     .div-2 {
         flex-grow: 1;
         justify-content: flex-start;
@@ -325,41 +648,95 @@
     }
 
     .project-card {
-        grid-template-columns: 1fr; /* Stack on mobile */
-        gap: 1.5rem;
+        display: flex; /* Change to flex for mobile */
+        flex-direction: column; /* Stack elements vertically */
+        gap: 1rem;
     }
     
     .project-image {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1/1;
+        width: 100px;
+        height: 100px;
+        align-self: flex-start; /* Left align image */
+    }
+    
+    .project-details {
+        width: 100%; /* Ensure details take full width */
     }
     
     .project-title {
-        font-size: 18px; /* Keep consistent */
+        font-size: 16px; /* Reduced from 18px */
     }
     
     .project-subtitle {
-        font-size: 14px; /* Keep consistent */
+        font-size: 13px; /* Reduced from 14px */
     }
     
-    .project-skills {
-        margin-top: 0.75rem;
+    .project-link {
+        font-size: 13px;
     }
 
-    :root {
-        --content-width: 100%;
+    .experience-card {
+        gap: 12px; /* Reduced from 16px */
+        margin-bottom: 20px; /* Reduced from 24px */
     }
-    
-    .frame {
-        padding: 2rem 2rem;
+
+    .experience-date {
+        font-size: 13px; /* Reduced from 14px */
+    }
+
+    .experience-title {
+        font-size: 20px; /* Reduced from 24px */
+    }
+
+    .experience-domain,
+    .experience-company {
+        font-size: 13px; /* Reduced from 14px */
+    }
+
+    .experience-description {
+        padding-left: 1rem; /* Slightly reduced padding */
+    }
+
+    .experience-description li {
+        font-size: 12px; /* Reduced from 13px */
+    }
+
+    .experience-description li ul {
+        padding-left: 1.2rem; /* Reduced from 1.5rem */
+    }
+
+    /* Update section titles for mobile */
+    .section-title {
+        font-size: 20px; /* Reduced from 24px */
+        padding-bottom: 0.4rem;
+        margin-bottom: 1.2rem;
+    }
+
+    /* Update skill pills for mobile */
+    .div-wrapper-2 {
+        padding: 0.2rem 0.4rem;
+    }
+
+    .text-wrapper-7 {
+        font-size: 0.6rem;
+    }
+
+    .logo-container {
+        width: 70px; /* Reduced from 90px */
+        height: 80px;
+        margin-bottom: 0.5rem;
+    }
+
+    .div-wrapper {
+        padding-top: 15px;
+        gap: 0.75rem;
     }
 }
 
 @media (max-width: 480px) {
     .text-wrapper-3,
     .text-wrapper-4 {
-        font-size: 2.5rem;
+        font-size: 2rem; /* Reduced from 2.5rem */
     }
 
     .a-VERSATILE-product {
@@ -373,7 +750,7 @@
     }
 
     .div {
-        flex-direction: column;
+        flex-direction: row;
         align-items: flex-start;
         gap: 1rem;
     }
@@ -391,15 +768,78 @@
     }
 
     .project-title {
-        font-size: 22px; /* Slightly smaller on mobile */
+        font-size: 15px;
     }
     
     .project-subtitle {
-        font-size: 15px;
+        font-size: 13px;
+    }
+
+    .project-image {
+        width: 70px; /* Even smaller image */
+        height: 70px;
+    }
+
+    .experience-title {
+        font-size: 18px;
     }
 
     .project-card {
         gap: 1rem;
+    }
+
+    .experience-card {
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .experience-date {
+        font-size: 12px;
+    }
+
+    .experience-domain,
+    .experience-company {
+        font-size: 12px;
+    }
+
+    .experience-description {
+        padding-left: 1rem;
+    }
+
+    .experience-description li {
+        font-size: 12px;
+    }
+
+    .experience-description li ul {
+        padding-left: 1.2rem; /* Reduced from 1.5rem */
+    }
+
+    .section-title {
+        font-size: 20px; /* Reduced from 24px */
+        padding-bottom: 0.4rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .div-wrapper-2 {
+        padding: 0.2rem 0.4rem;
+    }
+
+    .text-wrapper-7 {
+        font-size: 0.6rem;
+    }
+
+    .frame {
+        padding: 1rem; /* Even smaller padding */
+    }
+
+    .logo-container {
+        width: 60px; /* Even smaller for mobile */
+        height: 69px;
+    }
+
+    .div-wrapper {
+        padding-top: 10px;
+        gap: 0.5rem;
     }
 }
 
@@ -484,44 +924,45 @@
 
 .section-title {
     font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
-    font-size: 1rem;
+    font-size: 24px;
+    font-weight: 300;
     border-bottom: 1px solid #000;
     padding-bottom: 0.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .side-projects-grid {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
-/* Project card styles */
+/* Project card styles - reduced by ~30% */
 .project-card {
     display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 1rem;
+    grid-template-columns: 85px 1fr; /* Reduced from 120px */
+    gap: 0.7rem; /* Reduced from 1rem */
     align-items: start;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem; /* Reduced from 0.75rem */
 }
 
 .project-image {
-    width: 120px;
-    height: 120px;
+    width: 85px; /* Reduced from 120px */
+    height: 85px; /* Reduced from 120px */
     background-color: #cfcfcf;
-    border-radius: 15px;
+    border-radius: 12px; /* Reduced from 15px */
     flex-shrink: 0;
 }
 
 .project-details {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.35rem; /* Reduced from 0.5rem */
 }
 
 .project-title {
     font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 13px; /* Reduced from 18px */
     margin: 0;
     font-weight: normal;
     letter-spacing: -0.01em;
@@ -530,38 +971,579 @@
 
 .project-subtitle {
     font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 10px; /* Reduced from 14px */
     color: #696969;
     margin: 0;
 }
 
 .project-link {
     font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
-    color: #000;
-    text-decoration: none;
-    font-size: 14px;
+    color: var(--text-primary);
+    text-decoration: underline;
+    font-size: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.2s ease;
+}
+
+.project-link::after {
+    content: '';
+    display: inline-block;
+    width: 10px; /* Adjust size as needed */
+    height: 10px;
+    background-image: url('../img/arrow-up-right.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.2s ease;
 }
 
 .project-link:hover {
-    text-decoration: underline;
+    color: var(--link-hover);
+}
+
+.project-link:hover::after {
+    transform: translate(2px, -2px); /* Slight movement on hover */
 }
 
 .project-skills {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem;
-    margin-top: 0.15rem;
+    gap: 0.25rem; /* Reduced from 0.35rem */
+    margin-top: 0.1rem; /* Reduced from 0.15rem */
 }
 
 .div-wrapper-2 {
     display: inline-flex;
-    padding: 0.25rem 0.5rem;
-    background-color: #d9d9d9;
+    padding: 0.175rem 0.35rem; /* Reduced from 0.25rem 0.5rem */
+    background-color: var(--pill-bg);
     border-radius: 50px;
     white-space: nowrap;
 }
 
 .text-wrapper-7 {
     font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.45rem; /* Reduced from 0.65rem */
+}
+
+/* Section title also slightly reduced */
+.section-title {
+    font-size: 20px; /* Reduced from 24px */
+    padding-bottom: 0.4rem; /* Reduced from 0.5rem */
+    margin-bottom: 1.2rem; /* Reduced from 1.5rem */
+    border-bottom-color: var(--text-primary);
+}
+
+.side-projects-grid {
+    gap: 1rem; /* Reduced from 1.5rem */
+}
+
+/* Work Experience Section */
+.work-experience-section {
+    width: 100%;
+    margin-top: 4rem;
+}
+
+.experience-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px; /* Match side projects spacing */
+}
+
+.experience-card:last-child {
+    margin-bottom: 0;
+}
+
+.experience-date {
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.experience-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Reduced for tighter content */
+}
+
+.experience-title {
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 24px;
+    margin: 0;
+    font-weight: normal;
+    letter-spacing: -0.01em;
+    line-height: 1;
+}
+
+.experience-domain {
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 14px;
+    color: #696969;
+    margin: 0;
+}
+
+.experience-company {
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 14px;
+    margin: 0;
+}
+
+.experience-description {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--text-description);
+    transition: var(--theme-transition);
+}
+
+.experience-description li {
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 13px; /* Reduced from 14px */
+    line-height: 1.4;
+    margin-bottom: 0.25rem;
+}
+
+/* Nested list styles */
+.experience-description li ul {
+    margin-top: 0.25rem;
+    padding-left: 1.5rem; /* Add indentation for nested lists */
+    list-style-type: circle; /* Change bullet style for nested items */
+}
+
+.experience-description li ul li {
+    margin-bottom: 0.15rem;
+    font-size: 13px; /* Keep consistent with parent */
+}
+
+/* Optional: if you want the main bullet points to be more distinct */
+.experience-description > li {
+    margin-bottom: 0.5rem; /* More space between main points */
+}
+
+.experience-description > li:last-child {
+    margin-bottom: 0;
+}
+
+.experience-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+/* Work experience skill pills - larger than side projects */
+.experience-skills .div-wrapper-2 {
+    padding: 0.35rem 0.7rem; /* Larger padding */
+    background-color: #d9d9d9;
+    border-radius: 50px;
+    white-space: nowrap;
+}
+
+.experience-skills .text-wrapper-7 {
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 14px; /* Increased from 0.45rem */
+}
+
+/* Mobile adjustments for experience skill pills */
+@media (max-width: 768px) {
+    .experience-skills .div-wrapper-2 {
+        padding: 0.3rem 0.6rem; /* Slightly smaller on mobile */
+    }
+
+    .experience-skills .text-wrapper-7 {
+        font-size: 12px; /* Still larger than side project pills on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .experience-skills .div-wrapper-2 {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .experience-skills .text-wrapper-7 {
+        font-size: 11px;
+    }
+}
+
+/* Logo container - desktop */
+.logo-container {
+    width: 90px; /* Reduced from 120px */
+    height: 103px; /* Maintained aspect ratio */
+    margin-bottom: 0.5rem;
+}
+
+.group {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Footer styles */
+.footer {
+    width: 100%;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-text {
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 12px;
+    color: var(--footer-text);
+    transition: var(--theme-transition);
+}
+
+.footer-year {
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 12px;
+    color: #696969;
+    margin-bottom: 0.5rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.social-link {
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    color: var(--text-primary);
+    text-decoration: underline;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.2s ease;
+}
+
+.social-link::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-image: url('../img/arrow-up-right.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.2s ease;
+}
+
+.social-link:hover {
+    color: var(--link-hover);
+}
+
+.social-link:hover::after {
+    transform: translate(2px, -2px);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .footer {
+        padding-top: 3rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .footer-text,
+    .footer-year,
+    .social-link {
+        font-size: 10px;
+    }
+
+    .social-link::after {
+        width: 8px;
+        height: 8px;
+    }
+}
+
+/* Contact button styling */
+.contact-button {
+    position: relative;
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 100px;
+    padding: 0.6rem 1.5rem;
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 0.3s ease;
+    height: 30px; /* Match theme toggle height */
+    display: flex;
+    align-items: center;
+}
+
+/* Fill effect container */
+.button-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #232323;
+    transition: width 0.3s ease;
+    z-index: 1;
+}
+
+/* Button text */
+.button-content {
+    position: relative;
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 1rem;
+    color: #000000;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+/* Hover effects */
+.contact-button:hover .button-fill {
+    width: 100%;
+}
+
+.contact-button:hover .button-content {
+    color: #ffffff;
+}
+
+/* Active state */
+.contact-button:active {
+    transform: scale(0.98);
+}
+
+/* Success message styling */
+.copy-success {
+    position: fixed;
+    top: 80px;
+    right: var(--side-margin);
+    background-color: #232323;
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: 100px; /* Match the contact button radius */
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 0.875rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.copy-success.show {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .contact-button {
+        padding: 0.4rem 1rem;
+    }
+    
+    .button-content {
+        font-size: 0.875rem;
+    }
+}
+
+/* Animation keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Apply animations to elements */
+.div-2, .div-3 {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.logo-container {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.2s forwards;
+}
+
+.div-4 {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+}
+
+.a-VERSATILE-product {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.6s forwards;
+}
+
+.div-5 {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.8s forwards;
+}
+
+/* Side projects section animation */
+.side-projects-section {
+    opacity: 0;
+    animation: fadeInRight 0.8s ease-out 1s forwards;
+}
+
+.project-card {
+    opacity: 0;
+    animation: fadeInRight 0.8s ease-out forwards;
+}
+
+.project-card:nth-child(1) {
+    animation-delay: 1.2s;
+}
+
+.project-card:nth-child(2) {
+    animation-delay: 1.4s;
+}
+
+.project-card:nth-child(3) {
+    animation-delay: 1.6s;
+}
+
+/* Work experience section animation */
+.work-experience-section {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 1.8s forwards;
+}
+
+.experience-card {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.experience-card:nth-child(1) {
+    animation-delay: 2s;
+}
+
+.experience-card:nth-child(2) {
+    animation-delay: 2.2s;
+}
+
+.experience-card:nth-child(3) {
+    animation-delay: 2.4s;
+}
+
+.experience-card:nth-child(4) {
+    animation-delay: 2.6s;
+}
+
+/* Footer animation */
+.footer {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 2.8s forwards;
+}
+
+/* Optional: Add animation preferences for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* SVG logo styling */
+.svg-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.svg-logo path,
+.svg-logo line,
+.svg-logo polyline,
+.svg-logo rect,
+.svg-logo circle {
+    stroke: var(--svg-stroke) !important;
+    vector-effect: non-scaling-stroke;
+    transition: var(--theme-transition);
+}
+
+/* Keep existing logo container styles */
+.logo-container {
+    width: 90px;
+    height: 103px;
+    margin-bottom: 0.5rem;
+}
+
+/* Maintain hover effect */
+.svg-logo:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
+
+/* Project card backgrounds and logos - keep Clara Golf Club sizing */
+.project-card:nth-child(1) .project-image {
+    background-color: #347774;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.project-card:nth-child(1) .project-image svg {
+    width: 80%;
+    height: auto;
+}
+
+/* Increase BrewLog icon size */
+.project-card:nth-child(2) .project-image {
+    background-color: var(--brewlog-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem; /* Reduced padding to accommodate larger icon */
+    transition: var(--theme-transition);
+}
+
+.project-card:nth-child(2) .project-image svg {
+    width: 95%; /* Increased from 85% */
+    height: auto;
+    margin: 0 auto;
+}
+
+/* Adjust stroke width for larger icon */
+.project-card:nth-child(2) .project-image .brewlog-stroke,
+.project-card:nth-child(2) .project-image path {
+    stroke-width: 25; /* Reduced from 45 for better balance */
+}
+
+.project-card:nth-child(2) .project-image rect {
+    stroke-width: 20; /* Reduced from 35 */
+}
+
+.project-card:nth-child(2) .project-image line {
+    stroke-width: 15; /* Reduced from 30 */
+}
+
+/* Dark mode colors */
+[data-theme="dark"] {
+    --brewlog-bg: #ffffff;
+    --brewlog-fill: #000000;
+}
+
+[data-theme="light"] {
+    --brewlog-bg: #000000;
+    --brewlog-fill: #ffffff;
 }
