@@ -1547,3 +1547,289 @@ body {
     --brewlog-bg: #000000;
     --brewlog-fill: #ffffff;
 }
+
+/* Featured Work Section */
+.featured-work-section {
+    width: 100%;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.featured-work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    width: 100%;
+}
+
+.featured-work-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.featured-work-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust shadow for dark mode */
+[data-theme="dark"] .featured-work-card:hover {
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.05);
+}
+
+/* Ensure smooth transition for all properties */
+.featured-work-card,
+.featured-work-card * {
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.featured-image-container {
+    width: 100%;
+    aspect-ratio: 16/9; /* Maintain consistent image ratio */
+    overflow: hidden;
+}
+
+.featured-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.featured-text-container {
+    background-color: #1C1C1C;
+    padding: 20px; /* Reduced from 24px */
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.featured-client {
+    color: #ffffff;
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 20px; /* Reduced from 24px */
+    margin-bottom: 8px; /* Reduced from 12px */
+}
+
+.featured-project-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* This will push the date pill to the right */
+    gap: 8px;
+}
+
+.featured-project-name {
+    color: #686868;
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 12px; /* Reduced from 16px */
+}
+
+.featured-date-pill {
+    color: #686868;
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 12px; /* Reduced to match project name */
+    padding: 4px 10px;
+    border: 1px solid #686868;
+    border-radius: 100px;
+    margin-left: auto; /* Additional insurance for right alignment */
+}
+
+/* Update mobile styles to maintain proportions */
+@media (max-width: 768px) {
+    .featured-project-name,
+    .featured-date-pill {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .featured-project-name,
+    .featured-date-pill {
+        font-size: 10px;
+    }
+}
+
+/* Tablet Breakpoint */
+@media (max-width: 768px) {
+    .featured-work-grid {
+        grid-template-columns: 1fr; /* Change to single column */
+        gap: 20px; /* Slightly reduce gap for tablet */
+    }
+
+    .featured-work-card {
+        max-width: 100%; /* Ensure cards take full width */
+    }
+
+    .featured-text-container {
+        padding: 16px; /* Reduce padding for smaller screens */
+    }
+
+    .featured-client {
+        font-size: 18px;
+    }
+}
+
+/* Mobile Breakpoint */
+@media (max-width: 480px) {
+    .featured-work-section {
+        padding-top: 30px;
+    }
+
+    .featured-work-grid {
+        gap: 16px; /* Further reduce gap for mobile */
+    }
+
+    .featured-text-container {
+        padding: 14px;
+    }
+
+    .featured-client {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+}
+
+/* See More Button styling */
+.see-more-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50px;
+    padding: 0.35rem 0.7rem;
+    margin-top: 2rem;
+    cursor: pointer;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.see-more-button:hover {
+    transform: scale(1.02);
+}
+
+.see-more-button:active {
+    transform: scale(0.98);
+}
+
+.see-more-button + .see-more-button {
+    margin-top: 0.5rem;
+}
+
+/* Experience button specific */
+.see-more-button:not(.contact-action) {
+    background-color: #d9d9d9;
+}
+
+.see-more-button:not(.contact-action)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #1C1C1C;
+    transition: width 0.3s ease;
+    z-index: 1;
+}
+
+.see-more-button:not(.contact-action):hover::before {
+    width: 100%;
+}
+
+.see-more-button:not(.contact-action) .button-text {
+    color: #000000;
+    transition: color 0.3s ease;
+    z-index: 2;
+}
+
+.see-more-button:not(.contact-action):hover .button-text {
+    color: #ffffff;
+}
+
+/* Contact action button specific */
+.contact-action {
+    background-color: #1C1C1C;
+}
+
+.contact-action::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #d9d9d9;
+    transition: width 0.3s ease;
+    z-index: 1;
+}
+
+.contact-action:hover::before {
+    width: 100%;
+}
+
+.contact-action .button-text {
+    color: #ffffff;
+    transition: color 0.3s ease;
+    z-index: 2;
+}
+
+.contact-action:hover .button-text {
+    color: #000000;
+}
+
+/* Button text */
+.button-text {
+    font-family: "Helvetica Neue-Regular", Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+}
+
+/* Hide work experience section by default */
+.work-experience-section {
+    opacity: 0;
+    transform: translateY(30px);
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+/* Show work experience section when active */
+.work-experience-section.show {
+    opacity: 1;
+    transform: translateY(0);
+    height: auto;
+    overflow: visible;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .see-more-button {
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .button-text {
+        font-size: 12px;
+    }
+}
+
+/* Add spacing between buttons */
+.see-more-button + .see-more-button {
+    margin-top: 1rem;
+}
+
+/* Style for the contact action button */
+.contact-action {
+    background-color: #1C1C1C;
+    transition: all 0.3s ease;
+}
+
+.contact-action:hover {
+    background-color: #2a2a2a;
+}
